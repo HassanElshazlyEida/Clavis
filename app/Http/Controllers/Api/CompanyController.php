@@ -2,64 +2,25 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Company;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CompanyResource;
+use App\Http\Resources\CompanyCollection;
+use App\Http\Controllers\Api\BaseController;
 
-class CompanyController extends Controller
+class CompanyController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    protected $model = Company::class;
+    protected $resource = CompanyResource::class;
+    protected $collection = CompanyCollection::class;
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    protected function getValidationRules()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return [
+            'name' => 'required',
+            'email' => 'required|email',
+            'website' => 'required|url',
+        ];
     }
 }
