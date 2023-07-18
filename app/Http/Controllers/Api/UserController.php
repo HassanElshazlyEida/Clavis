@@ -5,11 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\UserCollection;
+use App\Http\Controllers\Api\BaseController;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
+    protected $model = User::class;
+    protected $resource = UserResource::class;
+
     public function register(Request $request)
     {
         $request->validate([

@@ -18,7 +18,7 @@ class BaseController extends Controller
     public function index()
     {
         $items = $this->model::all();
-        return $this->collection::collection($items);
+        return $this->resource::collection($items);
     }
 
     public function show($id)

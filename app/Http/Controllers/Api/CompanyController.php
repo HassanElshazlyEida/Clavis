@@ -13,7 +13,6 @@ class CompanyController extends BaseController
 {
     protected $model = Company::class;
     protected $resource = CompanyResource::class;
-    protected $collection = CompanyCollection::class;
 
     protected function getValidationRules()
     {
