@@ -30,7 +30,7 @@ class BaseController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate($this->getValidationRules());
-
+        
         $item = $this->model::create($validatedData);
 
         return new $this->resource($item);
@@ -40,7 +40,7 @@ class BaseController extends Controller
     {
         $item = $this->model::findOrFail($id);
 
-        $validatedData = $request->validate($this->getValidationRules());
+        $validatedData = $request->validate($this->getValidationRules($id));
 
         $item->update($validatedData);
 
@@ -55,7 +55,7 @@ class BaseController extends Controller
         return response()->json(['message' => __('Item deleted')]);
     }
 
-    protected function getValidationRules()
+    protected function getValidationRules($id = null)
     {
         return [];
     }

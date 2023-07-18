@@ -14,7 +14,7 @@ class CompanyController extends BaseController
     protected $model = Company::class;
     protected $resource = CompanyResource::class;
 
-    protected function getValidationRules()
+    protected function getValidationRules($id = null)
     {
         return [
             'name' => 'required',

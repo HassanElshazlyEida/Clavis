@@ -13,12 +13,20 @@ class EmployeeController extends BaseController
     protected $model = Employee::class;
     protected $resource = EmployeeResource::class;
 
-    protected function getValidationRules()
+    protected function getValidationRules($id = null)
     {
-        return [
-            'name' => 'required',
-            'email' => 'required|email',
-            'website' => 'required|url',
+        $rules = [
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'company_id' => 'required|exists:companies,id',
+            'email' => 'required|email|unique:employees,email',
+            'phone' => 'required|string',
         ];
+
+        if ($id) {
+            $rules['email'] = 'required|email|unique:employees,email,' . $id;
+        }
+        return $rules;
+
     }
 }

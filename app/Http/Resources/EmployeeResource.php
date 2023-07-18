@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,9 +17,8 @@ class EmployeeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'company' => $this->company,
+            'full_name'=>$this->full_name,
+            'company' => new CompanyResource(Company::find($this->company_id)),
             'email' => $this->email,
             'phone' => $this->phone,
         ];
