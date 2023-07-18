@@ -23,6 +23,8 @@ Route::prefix("v1")->group(function () {
         Route::apiResources([
             'users' => UserController::class,
         ]);
+        Route::post('users/password/update',[UserController::class,'updatePassword'])->name('users.password.update');
+
     });
     Route::apiResources([
         'companies' => CompanyController::class,

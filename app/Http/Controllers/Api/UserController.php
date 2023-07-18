@@ -77,5 +77,26 @@ class UserController extends BaseController
 
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
-    
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8',
+            'confirm_password' => 'required|same:new_password',
+        ]);
+
+        $user = auth()->user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => __('Current password is incorrect')], 401);
+        }
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        // // Send password updated notification
+        // $user->sendPasswordUpdatedNotification();
+
+        return response()->json(['message' => __('Password updated successfully')]);
+    }
 }
