@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CompanyController;
@@ -17,7 +18,7 @@ use App\Http\Controllers\Api\EmployeeController;
 |
 */
 
-Route::middleware('auth')->prefix("v1")->group(function () {
+Route::prefix("v1")->group(function () {
     Route::group(['as' => 'Api.'], function () {
         Route::apiResources([
             'companies' => CompanyController::class,
@@ -27,3 +28,5 @@ Route::middleware('auth')->prefix("v1")->group(function () {
     });
   
 }); 
+
+Auth::routes();
