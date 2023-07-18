@@ -21,12 +21,13 @@ use App\Http\Controllers\Api\EmployeeController;
 Route::prefix("v1")->group(function () {
     Route::group(['as' => 'Api.','middleware'=>"auth:sanctum"], function () {
         Route::apiResources([
-            'companies' => CompanyController::class,
-            'employees' => EmployeeController::class,
             'users' => UserController::class,
         ]);
     });
-   
+    Route::apiResources([
+        'companies' => CompanyController::class,
+        'employees' => EmployeeController::class
+    ]);
     Route::post('/register', [UserController::class,'register']);
     Route::post('/login',[UserController::class,'login']);
     

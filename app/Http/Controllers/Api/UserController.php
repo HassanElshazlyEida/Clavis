@@ -9,8 +9,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Controllers\Api\BaseController;
+use App\Http\Requests\LoginRequest;
 
 class UserController extends BaseController
 {
@@ -32,15 +34,9 @@ class UserController extends BaseController
 
         return $rules;
     }
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
-            "phone"=>'required',
-            'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+       
 
         $user = User::create([
             'name' => $request->name,
@@ -65,13 +61,9 @@ class UserController extends BaseController
         ]);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
+        $credentials = $request->validated();
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
